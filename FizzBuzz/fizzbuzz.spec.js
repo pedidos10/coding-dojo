@@ -16,7 +16,7 @@ describe("FizzBuzz", () => {
       return number === "Fizz";
     });
 
-    expect(onlyFizz).toHaveLength(33);
+    expect(onlyFizz).toHaveLength(27);
   });
 
   it("should generate 'Buzz' instead of numbers divisible by 5", () => {
@@ -29,5 +29,17 @@ describe("FizzBuzz", () => {
     });
 
     expect(onlyBuzz).toHaveLength(14);
+  });
+
+  it("should generate 'FizzBuzz' instead of numbers divisible by 3 and 5", () => {
+    const numbers = generateNumbers();
+
+    const numbersWithFizzBuzz = generateFizzBuzz(numbers);
+
+    const onlyBuzz = numbersWithFizzBuzz.filter((number) => {
+      return number === "FizzBuzz";
+    });
+
+    expect(onlyBuzz).toHaveLength(6);
   });
 });

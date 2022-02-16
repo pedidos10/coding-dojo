@@ -8,6 +8,9 @@ function generateNumbers() {
   return numbers;
 }
 
+const isFizz = (number) => number % 3 === 0;
+const isBuzz = (number) => number % 5 === 0;
+
 /**
  *
  * @param {Array<number>} numbers
@@ -15,10 +18,13 @@ function generateNumbers() {
  */
 function generateFizzBuzz(numbers) {
   return numbers.map((number) => {
-    if (number % 3 === 0) {
+    if (isFizz(number) && isBuzz(number)) {
+      return "FizzBuzz";
+    }
+    if (isFizz(number)) {
       return "Fizz";
     }
-    if (number % 5 === 0) {
+    if (isBuzz(number)) {
       return "Buzz";
     }
     return number;
