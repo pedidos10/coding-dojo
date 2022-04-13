@@ -30,12 +30,36 @@ export default class Character {
     return this.health > MIN_HEALTH;
   }
 
+  equals(character: Character): boolean {
+    return this === character;
+  }
+
+  increaseDamage(damage: number, percentage: number) {
+    return damage + damage * (percentage / 100);
+  }
+
+  reduceDamage(damage: number, percentage: number) {
+    return damage - damage * (percentage / 100);
+  }
+
   attack(target: Character, damage: number) {
+    if (this.equals(target)) {
+      return;
+    }
+
+    if (target.level - this.level >= 5) {
+      damage = this.reduceDamage(damage, 50);
+    }
+
+    if (this.level - target.level >= 5) {
+      damage = this.increaseDamage(damage, 50);
+    }
+
     target.receiveDamage(damage);
   }
 
-  heal(target: Character, heal: number) {
-    target.receiveHeal(heal);
+  heal(heal: number) {
+    this.receiveHeal(heal);
   }
 
   receiveDamage(damage: number) {

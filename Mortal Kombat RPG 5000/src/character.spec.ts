@@ -45,17 +45,6 @@ describe("Character", () => {
     expect(target.alive).toBeFalsy();
   });
 
-  it("should be able to heal another character", () => {
-    const healer = new Character();
-    const target = new Character();
-
-    target.receiveDamage(500);
-
-    healer.heal(target, 100);
-
-    expect(target.health).toBe(600);
-  });
-
   it("should increase target health when receiving heal", () => {
     const target = new Character();
 
@@ -82,5 +71,42 @@ describe("Character", () => {
     target.receiveHeal(100);
 
     expect(target.health).toBe(1000);
+  });
+
+  it("a character can't attack himself", () => {
+    const attacker = new Character();
+
+    attacker.attack(attacker, 100);
+
+    expect(attacker.health).toBe(1000);
+  });
+
+  it("a character can only heal himself", () => {
+    const character = new Character();
+
+    character.receiveDamage(100);
+    character.heal(100);
+
+    expect(character.health).toBe(1000);
+  });
+
+  it("if the target is 5 or more levels above the attacker, damage is reduced by 50%", () => {
+    const target = new Character();
+    const attacker = new Character();
+
+    target.level = 6;
+    attacker.attack(target, 100);
+
+    expect(target.health).toBe(950);
+  });
+
+  it("if the target is 5 or more levels below the attacker, damage is increased by 50%", () => {
+    const target = new Character();
+    const attacker = new Character();
+
+    attacker.level = 6;
+    attacker.attack(target, 100);
+
+    expect(target.health).toBe(850);
   });
 });
